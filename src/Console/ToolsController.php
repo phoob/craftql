@@ -13,7 +13,7 @@ use yii\console\Controller;
 use yii;
 use markhuot\CraftQL\Services\GraphQLService;
 use markhuot\CraftQL\Models\Token;
-use markhuot\CraftQL\Plugin as CraftQL;
+use markhuot\CraftQL\CraftQL as CraftQL;
 
 class ToolsController extends Controller
 {
@@ -111,7 +111,7 @@ class ToolsController extends Controller
                     $schema = $graphQl->getSchema($token);
                     $result = $graphQl->execute($schema, $query, $variables);
 
-                    $resolve(new Response(200, $headers, json_encode($result->toArray())));
+                    $resolve(new Response(200, $headers, json_encode(is_array($result) ? $result : $result->toArray())));
                 });
             });
         });
